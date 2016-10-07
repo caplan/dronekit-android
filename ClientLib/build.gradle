@@ -54,8 +54,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -97,7 +97,7 @@ android {
 }
 
 dependencies {
-    compile 'com.jakewharton.timber:timber:3.1.0'
+    compile 'com.jakewharton.timber:timber:4.3.1'
 
     compile "com.google.android.gms:play-services-base:${play_services_version}"
     compile "com.google.android.gms:play-services-location:${play_services_version}"
@@ -105,32 +105,32 @@ dependencies {
     //Java semver library
     compile 'com.github.zafarkhaja:java-semver:0.9.0'
 
-    compile 'com.jcraft:jsch:0.1.51'
+    compile 'com.jcraft:jsch:0.1.54'
 
     //MP4 generation library
-    compile 'com.googlecode.mp4parser:isoparser:1.1.7'
+    compile 'com.googlecode.mp4parser:isoparser:1.1.21'
 
     compile 'org.droidplanner.android:usb-serial-android:0.1.0'
 
     debugCompile project(':Mavlink')
 //    sitlCompile project(':Mavlink')
 
-    compile files('libs/Mavlink.jar')
-    compile files('libs/d2xx.jar')
+    compile project(':Mavlink')
+    compile files('libs/d2xx-2.05.00.000.jar')
 
     androidTestCompile 'junit:junit:4.12'
-    androidTestCompile "org.robolectric:robolectric:3.0"
+    androidTestCompile "org.robolectric:robolectric:3.1.2"
 }
 
 def getSoloLinkIp() {
-    return '\"10.1.1.10\"'
+    return '"10.1.1.10"'
 }
 
 def getLocalIp() {
     try {
-        return '\"' + InetAddress.getLocalHost().getCanonicalHostName() + '\"'
+        return '"' + InetAddress.getLocalHost().getCanonicalHostName() + '"'
     }catch(Exception e){
-        return '\"\"'
+        return '""'
     }
 }
 

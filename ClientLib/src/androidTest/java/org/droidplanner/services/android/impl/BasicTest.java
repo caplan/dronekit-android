@@ -12,9 +12,6 @@ import com.o3dr.android.client.BuildConfig;
 import com.o3dr.services.android.lib.drone.connection.ConnectionParameter;
 import com.o3dr.services.android.lib.gcs.link.LinkConnectionStatus;
 
-import org.junit.Assert;
-import org.junit.Before;
-
 import org.droidplanner.services.android.impl.communication.model.DataLink;
 import org.droidplanner.services.android.impl.core.MAVLink.MavLinkCommands;
 import org.droidplanner.services.android.impl.core.drone.LogMessageListener;
@@ -23,19 +20,23 @@ import org.droidplanner.services.android.impl.core.drone.autopilot.apm.ArduCopte
 import org.droidplanner.services.android.impl.core.firmware.FirmwareType;
 import org.droidplanner.services.android.impl.mock.MockMAVLinkClient;
 import org.droidplanner.services.android.impl.utils.AndroidApWarningParser;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+
+import static com.o3dr.services.android.lib.drone.connection.ConnectionType.TYPE_USB;
 
 
 /**
  * Created by djmedina on 3/5/15.
  * This is a simple test case.
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 18)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class BasicTest {
 
     private MavLinkDrone drone;
@@ -57,7 +58,7 @@ public class BasicTest {
     public void setUp() throws Exception {
         final Context context = RuntimeEnvironment.application.getApplicationContext();
 
-        ConnectionParameter connParams = new ConnectionParameter(0, new Bundle());
+        ConnectionParameter connParams = new ConnectionParameter(TYPE_USB, new Bundle());
         mavClient = new MockMAVLinkClient(context, inputStreamListener, connParams);
 
         drone = new ArduCopter("test:" + FirmwareType.ARDU_COPTER.getType(), context, mavClient, dpHandler, new AndroidApWarningParser(), new LogMessageListener() {
